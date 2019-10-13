@@ -35,7 +35,7 @@ enum CpuVariant {
     kUnknown = 0,
     kGeneric,
     kCortexA7,
-    kCortexA9,
+    kCortexa15,
     kCortexA53,
     kCortexA55,
     kKrait,
@@ -57,7 +57,7 @@ static constexpr CpuVariantNames cpu_variant_names[] = {
     {"cortex-a55", kCortexA55},
     {"cortex-a53", kCortexA53},
     {"krait", kKrait},
-    {"cortex-a9", kCortexA9},
+    {"cortex-a15", kCortexa15},
     {"cortex-a7", kCortexA7},
     // kUnknown indicates the end of this array.
     {"", kUnknown},
@@ -169,8 +169,8 @@ DEFINE_IFUNC(__memcpy) {
     switch(get_cpu_variant()) {
         case kCortexA7:
             RETURN_FUNC(__memcpy_func, __memcpy_a7);
-        case kCortexA9:
-            RETURN_FUNC(__memcpy_func, __memcpy_a9);
+        case kCortexa15:
+            RETURN_FUNC(__memcpy_func, __memcpy_a15);
         case kKrait:
             RETURN_FUNC(__memcpy_func, __memcpy_krait);
         case kCortexA53:
@@ -192,8 +192,8 @@ DEFINE_IFUNC(__memset_chk) {
         case kCortexA55:
         case kKryo:
             RETURN_FUNC(__memset_chk_func, __memset_chk_a7);
-        case kCortexA9:
-            RETURN_FUNC(__memset_chk_func, __memset_chk_a9);
+        case kCortexa15:
+            RETURN_FUNC(__memset_chk_func, __memset_chk_a15);
         case kKrait:
             RETURN_FUNC(__memset_chk_func, __memset_chk_krait);
         default:
@@ -209,8 +209,8 @@ DEFINE_IFUNC(memset) {
         case kCortexA55:
         case kKryo:
              RETURN_FUNC(memset_func, memset_a7);
-        case kCortexA9:
-             RETURN_FUNC(memset_func, memset_a9);
+        case kCortexa15:
+             RETURN_FUNC(memset_func, memset_a15);
         case kKrait:
              RETURN_FUNC(memset_func, memset_krait);
         default:
@@ -221,8 +221,8 @@ DEFINE_IFUNC(memset) {
 typedef char* strcpy_func(char* __dst, const char* __src);
 DEFINE_IFUNC(strcpy) {
     switch(get_cpu_variant()) {
-        case kCortexA9:
-            RETURN_FUNC(strcpy_func, strcpy_a9);
+        case kCortexa15:
+            RETURN_FUNC(strcpy_func, strcpy_a15);
         default:
             RETURN_FUNC(strcpy_func, strcpy_a15);
     }
@@ -233,8 +233,8 @@ DEFINE_IFUNC(__strcpy_chk) {
     switch(get_cpu_variant()) {
         case kCortexA7:
             RETURN_FUNC(__strcpy_chk_func, __strcpy_chk_a7);
-        case kCortexA9:
-            RETURN_FUNC(__strcpy_chk_func, __strcpy_chk_a9);
+        case kCortexa15:
+            RETURN_FUNC(__strcpy_chk_func, __strcpy_chk_a15);
         case kKrait:
         case kKryo:
             RETURN_FUNC(__strcpy_chk_func, __strcpy_chk_krait);
@@ -250,8 +250,8 @@ DEFINE_IFUNC(__strcpy_chk) {
 typedef char* stpcpy_func(char* __dst, const char* __src);
 DEFINE_IFUNC(stpcpy) {
     switch(get_cpu_variant()) {
-        case kCortexA9:
-            RETURN_FUNC(stpcpy_func, stpcpy_a9);
+        case kCortexa15:
+            RETURN_FUNC(stpcpy_func, stpcpy_a15);
         default:
             RETURN_FUNC(stpcpy_func, stpcpy_a15);
     }
@@ -260,8 +260,8 @@ DEFINE_IFUNC(stpcpy) {
 typedef char* strcat_func(char* __dst, const char* __src);
 DEFINE_IFUNC(strcat) {
     switch(get_cpu_variant()) {
-        case kCortexA9:
-            RETURN_FUNC(strcat_func, strcat_a9);
+        case kCortexa15:
+            RETURN_FUNC(strcat_func, strcat_a15);
         default:
             RETURN_FUNC(strcat_func, strcat_a15);
     }
@@ -272,8 +272,8 @@ DEFINE_IFUNC(__strcat_chk) {
     switch(get_cpu_variant()) {
         case kCortexA7:
             RETURN_FUNC(__strcat_chk_func, __strcat_chk_a7);
-        case kCortexA9:
-            RETURN_FUNC(__strcat_chk_func, __strcat_chk_a9);
+        case kCortexa15:
+            RETURN_FUNC(__strcat_chk_func, __strcat_chk_a15);
         case kKrait:
         case kKryo:
             RETURN_FUNC(__strcat_chk_func, __strcat_chk_krait);
@@ -289,8 +289,8 @@ DEFINE_IFUNC(__strcat_chk) {
 typedef int strcmp_func(const char* __lhs, const char* __rhs);
 DEFINE_IFUNC(strcmp) {
     switch(get_cpu_variant()) {
-        case kCortexA9:
-            RETURN_FUNC(strcmp_func, strcmp_a9);
+        case kCortexa15:
+            RETURN_FUNC(strcmp_func, strcmp_a15);
         case kCortexA55:
         case kKrait:
         case kKryo:
@@ -303,8 +303,8 @@ DEFINE_IFUNC(strcmp) {
 typedef size_t strlen_func(const char* __s);
 DEFINE_IFUNC(strlen) {
     switch(get_cpu_variant()) {
-        case kCortexA9:
-            RETURN_FUNC(strlen_func, strlen_a9);
+        case kCortexa15:
+            RETURN_FUNC(strlen_func, strlen_a15);
         default:
             RETURN_FUNC(strlen_func, strlen_a15);
     }
